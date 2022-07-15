@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div class="catalog-item__name">
+  "Maniac Mansion"
+  <div class="catalog-item__activation">
+    <img>
+  </div>
+  <div class="catalog-item__genres">abcdefg</div>
+</div>
+</body>
+<script>
+  const titles = document.querySelectorAll("div.catalog-item__name");
+  const title_list = [];
+  for (let title of titles) {
+    let str = title.firstChild.data.replace(/\n/g, "").trim().replace(/"/g, "");
+    title_list.push(str);
+  }
+  console.log(title_list);
+</script>
+<style>
+
+</style>
+</html>

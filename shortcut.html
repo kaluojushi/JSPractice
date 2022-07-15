@@ -1,0 +1,75 @@
+<html>
+<head>
+  <script>
+    const e = document.createElement("script");
+    e.onload = (() => {
+      e.remove();
+      const r = JSON.parse(String.raw`{"sfymqjczrj":"0","zjdfgj":"","sfyrjjh":"0","cfgj":"","tjgj":"","nrjrq":"0","rjka":"","jnmddsheng":"","jnmddshi":"","jnmddqu":"","jnmddxiangxi":"","rjjtfs":"","rjjtfs1":"","rjjtgjbc":"","jnjtfs":"","jnjtfs1":"","jnjtgjbc":"","sfqrxxss":"1","sfqtyyqjwdg":"0","sffrqjwdg":"0","sfhsjc":"","zgfx14rfh":"0","zgfx14rfhdd":"","sfyxjzxgym":"0","sfbyjzrq":"5","jzxgymqk":"6","campus":"\u7389\u6cc9\u6821\u533a","uid":"87247","date":"20220518","tw":"0","sfcxtz":"0","sfyyjc":"0","jcjgqr":"0","jcjg":"","sfjcbh":"0","sfcxzysx":"0","remark":"","address":"","area":"","province":"\u6d59\u6c5f\u7701","city":"","geo_api_info":"{\"type\":\"complete\",\"position\":{\"Q\":30.262766384549,\"R\":120.12174913194497,\"lng\":120.121749,\"lat\":30.262766},\"location_type\":\"html5\",\"message\":\"Get geolocation success.Convert Success.Get address success.\",\"accuracy\":15.152799596476415,\"isConverted\":true,\"status\":1,\"addressComponent\":{\"citycode\":\"0571\",\"adcode\":\"330106\",\"businessAreas\":[{\"name\":\"\u897f\u6eaa\",\"id\":\"330106\",\"location\":{\"Q\":30.271791,\"R\":120.09102999999999,\"lng\":120.09103,\"lat\":30.271791}},{\"name\":\"\u897f\u6e56\",\"id\":\"330106\",\"location\":{\"Q\":30.253167,\"R\":120.137878,\"lng\":120.137878,\"lat\":30.253167}},{\"name\":\"\u9ec4\u9f99\",\"id\":\"330106\",\"location\":{\"Q\":30.266482,\"R\":120.13581299999998,\"lng\":120.135813,\"lat\":30.266482}}],\"neighborhoodType\":\"\u79d1\u6559\u6587\u5316\u670d\u52a1;\u5b66\u6821;\u9ad8\u7b49\u9662\u6821\",\"neighborhood\":\"\u6d59\u6c5f\u5927\u5b66\u7389\u6cc9\u6821\u533a\",\"building\":\"\",\"buildingType\":\"\",\"street\":\"\u6d59\u5927\u8def\",\"streetNumber\":\"38\u53f7\",\"country\":\"\u4e2d\u56fd\",\"province\":\"\u6d59\u6c5f\u7701\",\"city\":\"\u676d\u5dde\u5e02\",\"district\":\"\u897f\u6e56\u533a\",\"towncode\":\"330106003000\",\"township\":\"\u7075\u9690\u8857\u9053\"},\"formattedAddress\":\"\u6d59\u6c5f\u7701\u676d\u5dde\u5e02\u897f\u6e56\u533a\u7075\u9690\u8857\u9053\u6d59\u6c5f\u5927\u5b66\u7389\u6cc9\u6821\u533a\",\"roads\":[],\"crosses\":[],\"pois\":[],\"info\":\"SUCCESS\"}","created":1652804408,"qksm":"","sfzx":"1","sfjcwhry":"0","sfcyglq":"0","gllx":"","glksrq":"","jcbhlx":"","jcbhrq":"","sftjwh":"0","sftjhb":"0","fxyy":"","bztcyy":"5","fjsj":"0","sfjchbry":"0","jrsfqzys":"","jrsfqzfy":"","sfyqjzgc":"","jrdqjcqk":"","sfjcqz":"","jcqzrq":"","jcwhryfs":"","jchbryfs":"","xjzd":"","szgj":"","sfsfbh":"0","jhfjrq":"","jhfjjtgj":"","jhfjhbcc":"","jhfjsftjwh":"0","jhfjsftjhb":"0","szsqsfybl":0,"sfsqhzjkk":1,"sqhzjkkys":"1","sfygtjzzfj":0,"gtjzzfjsj":"","gwszgz":"","gwszgzcs":"","created_uid":0,"jrdqtlqk":["0"],"id":48810894,"gwszdd":""}`),
+          d = JSON.parse(String.raw`{"sfymqjczrj":"0","zjdfgj":"","sfyrjjh":"0","cfgj":"","tjgj":"","nrjrq":"0","rjka":"","jnmddsheng":"","jnmddshi":"","jnmddqu":"","jnmddxiangxi":"","rjjtfs":"","rjjtfs1":"","rjjtgjbc":"","jnjtfs":"","jnjtfs1":"","jnjtgjbc":"","sfqrxxss":"1","sfqtyyqjwdg":"0","sffrqjwdg":"0","sfhsjc":"","zgfx14rfh":"0","zgfx14rfhdd":"","sfyxjzxgym":"0","sfbyjzrq":"5","jzxgymqk":"6","campus":"\u7389\u6cc9\u6821\u533a","ismoved":"0","uid":"87247","date":"20220517","tw":"0","sfcxtz":"0","sfyyjc":"0","jcjgqr":"0","jcjg":"","sfjcbh":"0","sfcxzysx":"0","remark":"","address":"\u6d59\u6c5f\u7701\u676d\u5dde\u5e02\u897f\u6e56\u533a\u7075\u9690\u8857\u9053\u5e86\u4e30\u65b0\u6751","area":"\u6d59\u6c5f\u7701 \u676d\u5dde\u5e02 \u897f\u6e56\u533a","province":"\u6d59\u6c5f\u7701","city":"\u676d\u5dde\u5e02","geo_api_info":"{\"type\":\"complete\",\"position\":{\"Q\":30.262766384549,\"R\":120.12174913194497,\"lng\":120.121749,\"lat\":30.262766},\"location_type\":\"html5\",\"message\":\"Get geolocation success.Convert Success.Get address success.\",\"accuracy\":15.152799596476415,\"isConverted\":true,\"status\":1,\"addressComponent\":{\"citycode\":\"0571\",\"adcode\":\"330106\",\"businessAreas\":[{\"name\":\"\u897f\u6eaa\",\"id\":\"330106\",\"location\":{\"Q\":30.271791,\"R\":120.09102999999999,\"lng\":120.09103,\"lat\":30.271791}},{\"name\":\"\u897f\u6e56\",\"id\":\"330106\",\"location\":{\"Q\":30.253167,\"R\":120.137878,\"lng\":120.137878,\"lat\":30.253167}},{\"name\":\"\u9ec4\u9f99\",\"id\":\"330106\",\"location\":{\"Q\":30.266482,\"R\":120.13581299999998,\"lng\":120.135813,\"lat\":30.266482}}],\"neighborhoodType\":\"\u79d1\u6559\u6587\u5316\u670d\u52a1;\u5b66\u6821;\u9ad8\u7b49\u9662\u6821\",\"neighborhood\":\"\u6d59\u6c5f\u5927\u5b66\u7389\u6cc9\u6821\u533a\",\"building\":\"\",\"buildingType\":\"\",\"street\":\"\u6d59\u5927\u8def\",\"streetNumber\":\"38\u53f7\",\"country\":\"\u4e2d\u56fd\",\"province\":\"\u6d59\u6c5f\u7701\",\"city\":\"\u676d\u5dde\u5e02\",\"district\":\"\u897f\u6e56\u533a\",\"towncode\":\"330106003000\",\"township\":\"\u7075\u9690\u8857\u9053\"},\"formattedAddress\":\"\u6d59\u6c5f\u7701\u676d\u5dde\u5e02\u897f\u6e56\u533a\u7075\u9690\u8857\u9053\u6d59\u6c5f\u5927\u5b66\u7389\u6cc9\u6821\u533a\",\"roads\":[],\"crosses\":[],\"pois\":[],\"info\":\"SUCCESS\"}","created":1652718008,"qksm":"","sfzx":"1","sfjcwhry":"0","sfcyglq":"0","gllx":"","glksrq":"","jcbhlx":"","jcbhrq":"","sftjwh":"0","sftjhb":"0","fxyy":"","bztcyy":"5","fjsj":"0","sfjchbry":"0","jrsfqzys":"","jrsfqzfy":"","sfyqjzgc":"0","jrdqjcqk":"","sfjcqz":"","jcqzrq":"","jcwhryfs":"","jchbryfs":"","xjzd":"","szgj":"","sfsfbh":"0","jhfjrq":"","jhfjjtgj":"","jhfjhbcc":"","jhfjsftjwh":"0","jhfjsftjhb":"0","szsqsfybl":"0","sfsqhzjkk":1,"sqhzjkkys":"1","sfygtjzzfj":0,"gtjzzfjsj":"","gwszgz":"","gwszgzcs":"","created_uid":0,"jrdqtlqk":"[\"0\"]","id":48744878}`),
+          t = decodeURIComponent;
+      if (d.jrdqtlqk) d.jrdqtlqk = JSON.parse(d.jrdqtlqk); else d.jrdqtlqk = ["0"];
+      d.uid = r.uid, d.id = r.id, d.created = r.created, d.date = r.date, d.address = t("%E6%B5%99%E6%B1%9F%E7%9C%81%E6%9D%AD%E5%B7%9E%E5%B8%82%E8%A5%BF%E6%B9%96%E5%8C%BA%E7%81%B5%E9%9A%90%E8%A1%97%E9%81%93%E6%B5%99%E6%B1%9F%E5%A4%A7%E5%AD%A6%E7%8E%89%E6%B3%89%E6%A0%A1%E5%8C%BA"), d.area = t("%E6%B5%99%E6%B1%9F%E7%9C%81%20%E6%9D%AD%E5%B7%9E%E5%B8%82%20%E8%A5%BF%E6%B9%96%E5%8C%BA"), d.province = t("%E6%B5%99%E6%B1%9F%E7%9C%81"), d.city = t("%E6%9D%AD%E5%B7%9E%E5%B8%82"), d.verifyCode = String.raw`XMIS`, document.write((jQuery.param(d)));
+      console.log(d)
+      var a = jQuery.param(d), b = getParams(d);
+      console.log(a)
+      console.log(b)
+      console.log(a === b)
+    }), e.src = "https://cdn.staticfile.org/jquery/3.4.1/jquery.js", document.head.appendChild(e);
+
+    function getParams(obj) {
+      const data = [];
+      for (const key in obj) {
+        const value = obj[key];
+        if (Array.isArray(value)) {
+          for (const k of value) {
+            data.push(`${encodeURIComponent(key + "[]")}=${encodeURIComponent(k)}`);
+          }
+        } else {
+          data.push(`${encodeURIComponent(key)}=${encodeURIComponent(value)}`);
+        }
+      }
+      return data.join('&');
+    }
+
+    function a( a, traditional ) {
+      var prefix,
+          s = [],
+          add = function( key, valueOrFunction ) {
+
+            // If value is a function, invoke it and use its return value
+            var value = isFunction( valueOrFunction ) ?
+                valueOrFunction() :
+                valueOrFunction;
+
+            s[ s.length ] = encodeURIComponent( key ) + "=" +
+                encodeURIComponent( value == null ? "" : value );
+          };
+
+      if ( a == null ) {
+        return "";
+      }
+
+      // If an array was passed in, assume that it is an array of form elements.
+      if ( Array.isArray( a ) || ( a.jquery && !jQuery.isPlainObject( a ) ) ) {
+
+        // Serialize the form elements
+        jQuery.each( a, function() {
+          add( this.name, this.value );
+        } );
+
+      } else {
+
+        // If traditional, encode the "old" way (the way 1.3.2 or older
+        // did it), otherwise encode params recursively.
+        for ( prefix in a ) {
+          buildParams( prefix, a[ prefix ], traditional, add );
+        }
+      }
+
+      // Return the resulting serialization
+      return s.join( "&" );
+    };
+  </script>
+</head>
+<body></body>
+</html>

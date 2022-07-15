@@ -1,0 +1,27 @@
+<html>
+<head>
+  <script>
+    const r = JSON.parse(String.raw``),
+        d = JSON.parse(String.raw``),
+        t = decodeURIComponent;
+    if (d.jrdqtlqk) d.jrdqtlqk = JSON.parse(d.jrdqtlqk); else d.jrdqtlqk = ["0"];
+    d.uid = r.uid, d.id = r.id, d.created = r.created, d.date = r.date, d.address = t(""), d.area = t(""), d.province = t(""), d.city = t(""), d.verifyCode = String.raw``, document.write(encodeURIComponent(getParams(d)));
+
+    function getParams(obj) {
+      const data = [];
+      for (const key in obj) {
+        const value = obj[key];
+        if (Array.isArray(value)) {
+          for (const k of value) {
+            data.push(`${encodeURIComponent(key + "[]")}=${encodeURIComponent(k)}`);
+          }
+        } else {
+          data.push(`${encodeURIComponent(key)}=${encodeURIComponent(value)}`);
+        }
+      }
+      return data.join('&');
+    }
+  </script>
+</head>
+<body></body>
+</html>
