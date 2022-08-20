@@ -51,6 +51,26 @@ var maxScore = function(s) {
   return max;
 };
 
-console.log(maxScore("011101"));
-console.log(maxScore("00111"));
-console.log(maxScore("1111"));
+// console.log(maxScore("011101"));
+// console.log(maxScore("00111"));
+// console.log(maxScore("1111"));
+
+
+/**
+ * @param {string} sentence
+ * @param {string} searchWord
+ * @return {number}
+ */
+var isPrefixOfWord = function(sentence, searchWord) {
+  const words = sentence.split(" ");
+  for (const [i, word] of words.entries()) {
+    if (word.startsWith(searchWord)) {
+      return i + 1;
+    }
+  }
+  return -1;
+};
+
+console.log(isPrefixOfWord("i love eating burger", "burg"));
+console.log(isPrefixOfWord("this problem is an easy problem", "pro"));
+console.log(isPrefixOfWord("i am tired", "you"));
