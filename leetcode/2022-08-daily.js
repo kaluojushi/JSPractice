@@ -117,9 +117,9 @@ var isPrefixOfWord = function(sentence, searchWord) {
  * @return {number}
  */
 var widthOfBinaryTree = function(root) {
-  const max = (a, b) => a > b ? a : b;
-  let ans = 0n;
-  const queue = [[root, 1n]];
+  let ans = 0;
+  const queue = [[root, 1]];
+  const MAX = Number.MAX_SAFE_INTEGER;
   while (queue.length) {
     const len = queue.length;
     const level = [];
@@ -127,15 +127,15 @@ var widthOfBinaryTree = function(root) {
       const [node, index] = queue.shift();
       level.push([node, index]);
       if (node.left) {
-        queue.push([node.left, index * 2n]);
+        queue.push([node.left, index * 2 % MAX]);
       }
       if (node.right) {
-        queue.push([node.right, index * 2n + 1n]);
+        queue.push([node.right, (index * 2 + 1) % MAX]);
       }
     }
-    ans = max(ans, level[len - 1][1] - level[0][1] + 1n);
+    ans = Math.max(ans, level[len - 1][1] - level[0][1] + 1);
   }
-  return Number(ans);
+  return ans;
 };
 
 // console.log(widthOfBinaryTree(buildTree([1,3,2,5,3,null,9])))
