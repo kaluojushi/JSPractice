@@ -7,6 +7,34 @@
 
 /** 在这里定义一些预定义的类，如TreeNode等 */
 
+function TreeNode(val, left, right) {
+  this.val = (val===undefined ? 0 : val)
+  this.left = (left===undefined ? null : left)
+  this.right = (right===undefined ? null : right)
+}
+
+function buildTree(arr) {
+  if (arr.length === 0 || arr[0] === null) {
+    return null;
+  }
+  const root = new TreeNode(arr.shift());
+  const queue = [root];
+  while (arr.length) {
+    const node = queue.shift();
+    if (node) {
+      for (const child of ["left", "right"]) {
+        if (arr.length && arr[0] !== null) {
+          queue.push(node[child] = new TreeNode(arr.shift()));
+        } else if (arr[0] === null) {
+          node[child] = null;
+          arr.shift();
+        }
+      }
+    }
+  }
+  return root;
+}
+
 /**
  * @param {number[]} arr
  * @return {number}
@@ -71,6 +99,45 @@ var isPrefixOfWord = function(sentence, searchWord) {
   return -1;
 };
 
-console.log(isPrefixOfWord("i love eating burger", "burg"));
-console.log(isPrefixOfWord("this problem is an easy problem", "pro"));
-console.log(isPrefixOfWord("i am tired", "you"));
+// console.log(isPrefixOfWord("i love eating burger", "burg"));
+// console.log(isPrefixOfWord("this problem is an easy problem", "pro"));
+// console.log(isPrefixOfWord("i am tired", "you"));
+
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var widthOfBinaryTree = function(root) {
+  let ans = 0;
+  const queue = [[root, 1]];
+  const MAX = Number.MAX_SAFE_INTEGER;
+  while (queue.length) {
+    const len = queue.length;
+    const level = [];
+    for (let i = 0; i < len; i++) {
+      const [node, index] = queue.shift();
+      level.push([node, index]);
+      if (node.left) {
+        queue.push([node.left, index * 2 % MAX]);
+      }
+      if (node.right) {
+        queue.push([node.right, (index * 2 + 1) % MAX]);
+      }
+    }
+    ans = Math.max(ans, level[len - 1][1] - level[0][1] + 1);
+  }
+  return ans;
+};
+
+// console.log(widthOfBinaryTree(buildTree([1,3,2,5,3,null,9])))
+// console.log(widthOfBinaryTree(buildTree([1,3,2,5,null,null,9,6,null,7])))
+// console.log(widthOfBinaryTree(buildTree([1,3,2,5])))
