@@ -141,3 +141,22 @@ var widthOfBinaryTree = function(root) {
 // console.log(widthOfBinaryTree(buildTree([1,3,2,5,3,null,9])))
 // console.log(widthOfBinaryTree(buildTree([1,3,2,5,null,null,9,6,null,7])))
 // console.log(widthOfBinaryTree(buildTree([1,3,2,5])))
+
+
+/**
+ * @param {number[][]} pairs
+ * @return {number}
+ */
+var findLongestChain = function(pairs) {
+  pairs.sort((a, b) => a[1] - b[1]);
+  let cur = -Infinity, ans = 0;
+  for (const [a, b] of pairs) {
+    if (a > cur) {
+      cur = b;
+      ans++;
+    }
+  }
+  return ans;
+};
+
+console.log(findLongestChain([[1,2], [2,3], [3,4]]));
