@@ -69,3 +69,24 @@ var findDuplicateSubtrees = function(root) {
   dfs(root);
   return Array.from(ans);
 };
+
+
+/**
+ * @param {string[]} logs
+ * @return {number}
+ */
+var minOperations = function(logs) {
+  let ans = 0;
+  for (const log of logs) {
+    if (log === "../") {
+      ans -= ans > 0 ? 1 : 0;
+    } else if (log !== "./") {
+      ans++;
+    }
+  }
+  return ans;
+};
+
+console.log(minOperations(["d1/","d2/","../","d21/","./"]));
+console.log(minOperations(["d1/","d2/","./","d3/","../","d31/"]));
+console.log(minOperations( ["d1/","../","../","../"]));
