@@ -1,42 +1,18 @@
-function fun1(s) {
-  s = s.replace(/</g, " <").replace(/>/g, "> ");
-  const stack = [];
-  const arr = s.split(" ");
-  console.log(arr)
-  for (const item of arr) {
-    if (item[0] === "<" && item[item.length - 1] === ">") {
-      if (item[1] === "/" && item.replace("/", "") === stack[stack.length - 1]) {
-        stack.pop();
-      } else if (item[1] !== "/") {
-        stack.push(item);
-      }
-    }
-  }
-  return stack.length === 0;
+const promise1 = Promise.resolve('First')
+const promise2 = Promise.resolve('Second')
+const promise3 = Promise.reject('Third')
+const promise4 = Promise.resolve('Fourth')
+
+const runPromises = async () => {
+  const res1 = await Promise.all([promise1, promise2])
+  console.log(1, res1)
+  const res2  = await Promise.all([promise3, promise4])
+  console.log(2, res2)
+  return [res1, res2]
 }
 
-// console.log(fun1("<h1><h2></h2></h1>"))
-// console.log(fun1("test<tit>/<>"));
+runPromises()
+    .then(res => console.log(3, res))
+    .catch(err => console.log(4, err))
 
-
-function fun3(n, m, doors) {
-  let first = 0, asc = true;
-  for (const door of doors) {
-    if (door === "A") {
-      first = asc ? (first + 1) % n : (first + n - 1) % n;
-    } else if (door === "B") {
-      first = asc ? (first + n - 1) % n : (first + 1) % n;
-      asc = !asc;
-    }
-  }
-  const ans = [];
-  while (ans.length < n) {
-    ans.push(first + 1);
-    first = asc ? (first + 1) % n : (first + n - 1) % n;
-  }
-  return ans.join(" ");
-}
-
-// console.log(fun3(5, 4, ["A", "A", "B", "A"]))
-
-
+console.log(Promise.reject(3).catch(err => console.log(err)))
