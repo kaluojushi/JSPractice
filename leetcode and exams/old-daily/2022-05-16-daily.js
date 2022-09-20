@@ -91,7 +91,7 @@ var isAlienSorted = function(words, order) {
   return true;
 };
 
-// console.log(isAlienSorted(["hello","leetcode"], "hlabcdefgijkmnopqrstuvwxyz"));
+// console.log(isAlienSorted(["hello","leetcode and exams"], "hlabcdefgijkmnopqrstuvwxyz"));
 // console.log(isAlienSorted(["word","world","row"], "worldabcefghijkmnpqstuvxyz"));
 // console.log(isAlienSorted(["apple","app"], "abcdefghijklmnopqrstuvwxyz"));
 

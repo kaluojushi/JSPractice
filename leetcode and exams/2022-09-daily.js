@@ -188,3 +188,65 @@ var trimMean = function(arr) {
 // console.log(trimMean([4,8,4,10,0,7,1,3,7,8,8,3,4,1,6,2,1,1,8,0,9,8,0,3,9,10,3,10,1,10,7,3,2,1,4,9,10,7,6,4,0,8,5,1,2,1,6,2,5,0,7,10,9,10,3,7,10,5,8,5,7,6,7,6,10,9,5,10,5,5,7,2,10,7,7,8,2,0,1,1]));
 
 
+/**
+ * @param {number} n
+ * @param {number} presses
+ * @return {number}
+ */
+var flipLights = function(n, presses) {
+if (presses === 0) {
+    return 1;
+  }
+  if (n === 1) {
+    return 2;
+  }
+  if (n === 2) {
+    return presses === 1 ? 3 : 4;
+  }
+  return presses === 1 ? 4 : presses === 2 ? 7 : 8;
+};
+
+
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var maxLengthBetweenEqualCharacters = function(s) {
+  const n = s.length;
+  const firstPos = new Array(26).fill(-1);
+  let ans = -1;
+  for (let i = 0; i < n; i++) {
+    const c = s[i].charCodeAt(0) - 'a'.charCodeAt(0);
+    if (firstPos[c] === -1) {
+      firstPos[c] = i;
+    } else {
+      ans = Math.max(ans, i - firstPos[c] - 1);
+    }
+  }
+  return ans;
+};
+
+// console.log(maxLengthBetweenEqualCharacters("aa"));
+// console.log(maxLengthBetweenEqualCharacters("abca"));
+// console.log(maxLengthBetweenEqualCharacters("cbzxy"));
+// console.log(maxLengthBetweenEqualCharacters("cabbac"));
+
+
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var frequencySort = function(nums) {
+  const cnt = new Map();
+  for (const num of nums) {
+    cnt.set(num, (cnt.get(num) || 0) + 1);
+  }
+  nums.sort((a, b) => cnt.get(a) - cnt.get(b) || b - a);
+  return nums;
+};
+
+// console.log(frequencySort([1,1,2,2,2,3]));
+// console.log(frequencySort([2,3,1,3,2]));
+// console.log(frequencySort([-1,1,-6,4,5,-6,1,4,1]));
+
+

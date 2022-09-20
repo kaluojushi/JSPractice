@@ -180,7 +180,7 @@ var capitalizeTitle = function(title) {
 
 // console.log(capitalizeTitle("capiTalIze tHe titLe"))
 // console.log(capitalizeTitle("First leTTeR of EACH Word"))
-// console.log(capitalizeTitle("i lOve leetcode"))
+// console.log(capitalizeTitle("i lOve leetcode and exams"))
 
 
 /**

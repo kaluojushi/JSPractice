@@ -48,7 +48,7 @@ var largestWordCount = function(messages, senders) {
 };
 
 // console.log(largestWordCount(["Hello userTwooo","Hi userThree","Wonderful day Alice","Nice day userThree"], ["Alice","userTwo","userThree","Alice"]));
-// console.log(largestWordCount(["How is leetcode for everyone","Leetcode is useful for practice"], ["Bob","Charlie"]));
+// console.log(largestWordCount(["How is leetcode and exams for everyone","Leetcode is useful for practice"], ["Bob","Charlie"]));
 
 
 /**

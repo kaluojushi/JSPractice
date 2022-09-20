@@ -135,7 +135,7 @@ TextEditor.prototype.cursorRight = function(k) {
  */
 
 let obj = new TextEditor();
-obj.addText("leetcode");
+obj.addText("leetcode and exams");
 console.log(obj.deleteText(4));
 obj.addText("practice");
 console.log(obj.cursorRight(3));
