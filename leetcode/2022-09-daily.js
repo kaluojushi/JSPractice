@@ -250,3 +250,35 @@ var frequencySort = function(nums) {
 // console.log(frequencySort([-1,1,-6,4,5,-6,1,4,1]));
 
 
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {boolean}
+ */
+var canPartitionKSubsets = function(nums, k) {
+  const n = nums.length;
+  const sum = nums.reduce((a, b) => a + b);
+  if (sum % k !== 0) {
+    return false;
+  }
+  const avg = sum / k;
+  const dp = new Array(1 << n).fill(-1);
+  dp[0] = 0;
+  for (let s = 0; s < (1 << n); s++) {
+    for (let i = 0; i < n; i++) {
+      if (s & (1 << i)) {
+        const s1 = s & ~(1 << i);
+        if (dp[s1] >= 0 && dp[s1] + nums[i] <= avg) {
+          dp[s] = (dp[s1] + nums[i]) % avg;
+          break;
+        }
+      }
+    }
+  }
+  return dp[(1 << n) - 1] === 0;
+};
+
+console.log(canPartitionKSubsets([4,3,2,3,5,2,1], 4));
+console.log(canPartitionKSubsets([1,2,3,4], 3));
+console.log(canPartitionKSubsets([2,2,2,2,3,4,5], 4));
+console.log(canPartitionKSubsets([1,2,3,4,5,6,7], 4));

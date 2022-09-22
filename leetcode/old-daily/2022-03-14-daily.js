@@ -53,7 +53,7 @@ var isUnique = function(astr) {
   return true;
 };
 
-// console.log(isUnique("leetcode and exams"));
+// console.log(isUnique("leetcode"));
 // console.log(isUnique("abc"));
 
 

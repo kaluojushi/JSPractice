@@ -195,7 +195,7 @@ TextEditor.prototype.getText = function() {
  */
 
 // let obj = new TextEditor();
-// obj.addText("leetcode and exams");
+// obj.addText("leetcode");
 // console.log(obj.deleteText(4));
 // obj.addText("practice");
 // console.log(obj.cursorRight(3));
