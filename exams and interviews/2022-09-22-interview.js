@@ -76,35 +76,49 @@ merge(nums13, 4, [6, 7], 2)
  * @return {number}
  */
 
-// function fun(recordsA, recordsB) {
-//   let ans = 0;
-//   const arrA = recordsA.replace(/([A-Z])/g, match => match + " ").trim().split(" ");
-//   const arrB = recordsB.replace(/([A-Z])/g, match => match + " ").trim().split(" ");
-//   const m = arrA.length, n = arrB.length;
-//   let i = 0, j = 0;
-//   let idxStartA = -1, idxStartB = -1, idxEndA = -1, idxEndB = -1, chA = "", chB = "";
-//   let moveA = true, moveB = true;
-//   while (i < m && j < n) {
-//     const pA = arrA[i], pB = arrB[j];
-//     chA = pA[pA.length - 1];
-//     chB = pB[pB.length - 1];
-//     if (moveA) {
-//       idxStartA = idxEndA + 1;
-//       idxEndA = idxStartA + Number(pA.slice(0, pA.length - 1)) - 1;
-//     }
-//     if (moveB) {
-//       idxStartB = idxEndB + 1;
-//       idxEndB = idxStartB + Number(pB.slice(0, pB.length - 1)) - 1;
-//     }
-//     if (chA === chB) ans += Math.min(idxEndA, idxEndB) - Math.max(idxStartA, idxStartB) + 1;
-//     if (idxEndA > idxEndB) {
-//       j++; moveB = true; moveA = false;
-//     } else {
-//       i++; moveA = true; moveB = false;
-//     }
-//   }
-//   return ans;
-// }
+function fun(recordsA, recordsB) {
+  const m = recordsA.length, n = recordsB.length;
+  let ans = 0;
+  let i1 = 0, j1 = 0, i2 = 0, j2 = 0;
+  let nums1 = 0, nums2 = 0, ch1 = '', ch2 = '';
+  while (i1 < m || nums1 > 0 && i2 < n || nums2 > 0) {
+    if (nums1 < nums2) {
+      [num1, ch1] = getA();
+    } else if (nums1 > nums2) {
+      [num2, ch2] = getB();
+    } else {
+      [num1, ch1] = getA();
+      [num2, ch2] = getB();
+    }
+    const min = Math.min(nums1, nums2);
+    if (ch1 === ch2) {
+      ans += min;
+    }
+    nums1 -= min;
+    nums2 -= min;
+  }
+  return ans;
+
+  function getA() {
+    while (recordsA[j1] >= '0' && recordsA[j1] <= '9') {
+      j1++;
+    }
+    nums1 = Number(recordsA.slice(i1, j1));
+    ch1 = recordsA[j1++];
+    i1 = j1;
+    return [nums1, ch1];
+  }
+
+  function getB() {
+    while (recordsB[j2] >= '0' && recordsB[j2] <= '9') {
+      j2++;
+    }
+    nums2 = Number(recordsB.slice(i2, j2));
+    ch2 = recordsB[j2++];
+    i2 = j2;
+    return [nums2, ch2];
+  }
+}
 
 console.log(fun("2A2B2A3C", "3C2B2A2D"));
 console.log(fun("11A2B3C", "2D5A2B1A3C3B"));
