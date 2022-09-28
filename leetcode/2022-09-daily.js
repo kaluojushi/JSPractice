@@ -278,7 +278,216 @@ var canPartitionKSubsets = function(nums, k) {
   return dp[(1 << n) - 1] === 0;
 };
 
-console.log(canPartitionKSubsets([4,3,2,3,5,2,1], 4));
-console.log(canPartitionKSubsets([1,2,3,4], 3));
-console.log(canPartitionKSubsets([2,2,2,2,3,4,5], 4));
-console.log(canPartitionKSubsets([1,2,3,4,5,6,7], 4));
+// console.log(canPartitionKSubsets([4,3,2,3,5,2,1], 4));
+// console.log(canPartitionKSubsets([1,2,3,4], 3));
+// console.log(canPartitionKSubsets([2,2,2,2,3,4,5], 4));
+// console.log(canPartitionKSubsets([1,2,3,4,5,6,7], 4));
+
+
+var MyLinkedList = function() {
+  this.size = 0;
+  this.head = new ListNode();
+};
+
+/**
+ * @param {number} index
+ * @return {number}
+ */
+MyLinkedList.prototype.get = function(index) {
+  if (index < 0 || index >= this.size) {
+    return -1;
+  }
+  let cur = this.head;
+  for (let i = 0; i < index + 1; i++) {
+    cur = cur.next;
+  }
+  return cur.val;
+};
+
+/**
+ * @param {number} val
+ * @return {void}
+ */
+MyLinkedList.prototype.addAtHead = function(val) {
+  this.addAtIndex(0, val);
+};
+
+/**
+ * @param {number} val
+ * @return {void}
+ */
+MyLinkedList.prototype.addAtTail = function(val) {
+  this.addAtIndex(this.size, val);
+};
+
+/**
+ * @param {number} index
+ * @param {number} val
+ * @return {void}
+ */
+MyLinkedList.prototype.addAtIndex = function(index, val) {
+  if (index > this.size) {
+    return;
+  }
+  if (index < 0) {
+    index = 0;
+  }
+  this.size++;
+  let prev = this.head;
+  for (let i = 0; i < index; i++) {
+    prev = prev.next;
+  }
+  const toAdd = new ListNode(val);
+  toAdd.next = prev.next;
+  prev.next = toAdd;
+};
+
+/**
+ * @param {number} index
+ * @return {void}
+ */
+MyLinkedList.prototype.deleteAtIndex = function(index) {
+  if (index < 0 || index >= this.size) {
+    return;
+  }
+  this.size--;
+  let prev = this.head;
+  for (let i = 0; i < index; i++) {
+    prev = prev.next;
+  }
+  prev.next = prev.next.next;
+};
+
+/**
+ * Your MyLinkedList object will be instantiated and called as such:
+ * var obj = new MyLinkedList()
+ * var param_1 = obj.get(index)
+ * obj.addAtHead(val)
+ * obj.addAtTail(val)
+ * obj.addAtIndex(index,val)
+ * obj.deleteAtIndex(index)
+ */
+
+function ListNode(val, next) {
+  this.val = val || 0;
+  this.next = next || null;
+}
+
+
+/**
+ * @param {number[]} arr
+ * @param {number[][]} pieces
+ * @return {boolean}
+ */
+var canFormArray = function(arr, pieces) {
+  const n = arr.length, m = pieces.length;
+  const map = new Map();
+  for (let i = 0; i < m; i++) {
+    map.set(pieces[i][0], i);
+  }
+  let i = 0;
+  while (i < n) {
+    if (!map.has(arr[i])) {
+      return false;
+    }
+    const idx = map.get(arr[i]);
+    for (let j = 0; j < pieces[idx].length; i++, j++) {
+      if (arr[i] !== pieces[idx][j]) {
+        return false;
+      }
+    }
+  }
+  return true;
+};
+
+// console.log(canFormArray([15,88], [[15],[88]]));
+// console.log(canFormArray([49,18,16], [[16,18,49]]));
+// console.log(canFormArray([91,4,64,78], [[78],[4,64],[91]]));
+
+
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var rotatedDigits = function(n) {
+  let ans = 0;
+  for (let i = 1; i <= n; i++) {
+    if (isGood(i)) {
+      ans++;
+    }
+  }
+  return ans;
+
+  function isGood(x) {
+    let ans = false;
+    while (x) {
+      const d = x % 10;
+      if (d === 3 || d === 4 || d === 7) {
+        return false;
+      }
+      if (d === 2 || d === 5 || d === 6 || d === 9) {
+        ans = true;
+      }
+      x = Math.floor(x / 10);
+    }
+    return ans;
+  }
+};
+
+// console.log(rotatedDigits(10));
+// console.log(rotatedDigits(857));
+// console.log(rotatedDigits(10000));
+
+
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var missingTwo = function(nums) {
+  const n = nums.length + 2;
+  const sum = n * (n + 1) / 2;
+  const sum2 = n * (n + 1) * (2 * n + 1) / 6;
+  let s1 = 0, s2 = 0;
+  for (let i = 0; i < n - 2; i++) {
+    s1 += nums[i];
+    s2 += nums[i] * nums[i];
+  }
+  const A = sum - s1, B = sum2 - s2;
+  const tmp = Math.sqrt(2 * B - A * A);
+  return [(A + tmp) / 2, (A - tmp) / 2];
+};
+
+// console.log(missingTwo([1,2,4]));
+// console.log(missingTwo([2,3]));
+// console.log(missingTwo([1,3]));
+
+
+/**
+ * @param {number} k
+ * @return {number}
+ */
+var getKthMagicNumber = function(k) {
+  const dp = new Array(k);
+  dp[0] = 1;
+  let p3 = 0, p5 = 0, p7 = 0;
+  for (let i = 1; i < k; i++) {
+    dp[i] = Math.min(dp[p3] * 3, dp[p5] * 5, dp[p7] * 7);
+    if (dp[i] === dp[p3] * 3) {
+      p3++;
+    }
+    if (dp[i] === dp[p5] * 5) {
+      p5++;
+    }
+    if (dp[i] === dp[p7] * 7) {
+      p7++;
+    }
+  }
+  return dp[k - 1];
+};
+
+console.log(getKthMagicNumber(5));
+console.log(getKthMagicNumber(3));
+console.log(getKthMagicNumber(1));
+console.log(getKthMagicNumber(7));
+console.log(getKthMagicNumber(10));
+console.log(getKthMagicNumber(100));
