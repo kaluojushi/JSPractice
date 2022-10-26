@@ -229,7 +229,7 @@ function snake2camel(str) {
  */
 
 function camel2snake(str) {
-  return typeof str === "string" && str.length > 0 ? (str[0] + str.slice(1).replace(/([A-Z])/g, "_$1")).toLowerCase() : "";
+  return typeof str === "string" && str ? (str[0] + str.slice(1).split('').map(ch => ch.toUpperCase() === ch ? '_' + ch : ch).join('')).toLowerCase() : "";
 }
 
 // console.log(camel2snake());
@@ -269,16 +269,32 @@ function findSum(arr, target) {
  */
 
 function parseQueryString(url) {
+  // const ans = {};
+  // if (typeof url === "string") {
+  //   const query = url.split("/?")[1];
+  //   if (query) {
+  //     const queries = query.split("&").map(s => s.split("="));
+  //     for (const [key, value] of queries) {
+  //       if (key) {
+  //         ans[key] = decodeURIComponent(value || "");
+  //       }
+  //     }
+  //   }
+  // }
+  // return ans;
+  // 正则
   const ans = {};
   if (typeof url === "string") {
-    const query = url.split("/?")[1];
-    if (query) {
-      const queries = query.split("&").map(s => s.split("="));
-      for (const [key, value] of queries) {
+    url = url.slice(url.indexOf("?") > -1 ? url.indexOf("?") + 1 : url.length);
+    const reg = /([^?&=]+)=?([^?&=]*)/g;
+    const queries = url.match(reg);
+    if (queries) {
+      queries.forEach(query => {
+        const [key, value] = query.split("=");
         if (key) {
           ans[key] = decodeURIComponent(value || "");
         }
-      }
+      });
     }
   }
   return ans;
@@ -292,6 +308,7 @@ function parseQueryString(url) {
 // console.log(parseQueryString("https://google.com/?name=jeff&name"));
 // console.log(parseQueryString("https://google.com/?q=%E6%94%AF%E4%BB%98%E5%AE%9D"));
 // console.log(parseQueryString("https://google.com/?q=%2F%3F%26%3D%2F%3F%26%3D%2F%3F%26%3D"));
+// console.log(parseQueryString("https://www.taobao.com/?a=1&b=2&c=3&d#name"));
 
 
 /**
@@ -362,26 +379,127 @@ function reorganize(str) {
  * 判断一个链路是否对称闭环
  */
 
-function isSymmetricalClosed(path) {
-  const nodes = path.split("->");
-  const n = nodes.length;
-  if (n === 1) {
-    return true;
-  }
-  const map = new Map();
-  for (const node of nodes) {
-    map.set(node, (map.get(node) || 0) + 1);
-  }
-  const odd = [];
-  for (const [node, count] of map) {
-    if (count % 2 === 1) {
-      odd.push(node);
+function isSymmetricalClosed(str) {
+  const arr = str.split("->");
+  let left = 0;
+  let right = arr.length - 1;
+  while (left < right) {
+    if (arr[left] !== arr[right]) {
+      return false;
     }
+    left++;
+    right--;
   }
-  return odd.length <= 1;
+  return true;
 }
 
-console.log(isSymmetricalClosed("1->2"));
-console.log(isSymmetricalClosed("1"));
-console.log(isSymmetricalClosed("1->5->3->5->1"));
-console.log(isSymmetricalClosed("1->2->3->1"));
+// console.log(isSymmetricalClosed("1->2"));
+// console.log(isSymmetricalClosed("1"));
+// console.log(isSymmetricalClosed("1->5->3->5->1"));
+// console.log(isSymmetricalClosed("1->2->3->1"));
+
+
+function findMaxNode(tree) {
+  let { left, right, ...max } = tree; // 不取 left 和 right
+  if (tree.left) {
+    const leftMax = findMaxNode(tree.left);
+    if (leftMax.value > max.value) {
+      max = leftMax;
+    }
+  }
+  if (tree.right) {
+    const rightMax = findMaxNode(tree.right);
+    if (rightMax.value > max.value) {
+      max = rightMax;
+    }
+  }
+  return max;
+}
+
+const tree = {
+  id: "i1",
+  value: 17,
+  left: {
+    id: "i3",
+    value: 83,
+    left: { id: "i4", value: 101 },
+    right: { id: "i9", value: 22 }
+  },
+  right: {
+    id: "i11",
+    value: 26
+  }
+};
+
+// console.log(findMaxNode(tree));
+// console.log(findMaxNode({id: "i1", value: 10}));
+// console.log(findMaxNode({id: "i1", value: 10, left: {id: "i2"}}));
+
+
+class Calendar {
+  constructor() {
+    this.days = new Array(31).fill(0);
+  }
+  book(start, end) {
+    if (start < 1 || start > 31 || end < 1 || end > 31 || start > end) {
+      return false;
+    }
+    if (this.days.slice(start - 1, end).some(v => v >= 2)) {
+      return false;
+    }
+    for (let i = start - 1; i < end; i++) {
+      this.days[i]++;
+    }
+    return true;
+  }
+}
+
+// const mySchedule = new Calendar();
+// const ans = [mySchedule.book(0, 0), // false
+// mySchedule.book(32, 35), // false
+// mySchedule.book(1, 10), // true
+// mySchedule.book(8, 14), // true
+// mySchedule.book(12, 16), // true
+// mySchedule.book(22, 30), // true
+// mySchedule.book(2, 9), // false
+// mySchedule.book(18, 20), // true
+// mySchedule.book(13, 17), // false
+// ];
+// ans.forEach((a, i) => console.log(`第${i + 1}次预定${a ? "成功" : "失败"}`));
+
+
+function chunk(array, length = 1) {
+  if (!Array.isArray(array)) {
+    return [];
+  }
+  return array.reduce((acc, cur) => {
+    const last = acc[acc.length - 1];
+    if (!last || last.length === length) {
+      acc.push([cur]);
+    } else {
+      last.push(cur);
+    }
+    return acc;
+  }, []);
+}
+
+// console.log(chunk([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 3));
+// console.log(chunk([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 4));
+// console.log(chunk([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 5));
+// console.log(chunk([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 6));
+// console.log(chunk([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 12));
+
+
+function flatten(array, depth = Infinity) {
+  if (depth === 0) return array;
+  return array.reduce((acc, val) => {
+    if (Array.isArray(val)) {
+      return acc.concat(flatten(val, depth - 1));
+    }
+    return acc.concat(val);
+  }, []);
+}
+
+console.log(flatten([1, [2, [3, [4]], 5]]));
+console.log(flatten([1, [2, [3, [4]], 5]], 1));
+console.log(flatten([1, [2, [3, [4]], 5]], 2));
