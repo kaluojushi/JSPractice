@@ -423,5 +423,193 @@ var countStudents = function(students, sandwiches) {
   return s0 + s1;
 };
 
-console.log(countStudents([1,1,0,0], [0,1,0,1]));
-console.log(countStudents([1,1,1,0,0,1], [1,0,0,0,1,1]));
+// console.log(countStudents([1,1,0,0], [0,1,0,1]));
+// console.log(countStudents([1,1,1,0,0,1], [1,0,0,0,1,1]));
+
+
+/**
+ * @param {number} n
+ * @param {number} k
+ * @return {number}
+ */
+var kthGrammar = function(n, k) {
+  if (n === 1 || n === 2) {
+    return [0, 1][k - 1];
+  }
+  let drift;
+  if (k <= (1 << (n - 2))) {
+    drift = 0
+  } else if (k <= (1 << (n - 3)) * 3) {
+    drift = 1 << (n - 3);
+  } else {
+    drift = (1 << (n - 3)) * 3;
+  }
+  return kthGrammar(n - 1, k - drift);
+};
+
+// console.log(kthGrammar(1, 1));
+// console.log(kthGrammar(2, 1));
+// console.log(kthGrammar(2, 2));
+// console.log(kthGrammar(4, 5));
+// console.log(kthGrammar(30, 434991989));
+
+
+var StockSpanner = function() {
+  this.stack = [[-1, Infinity]];
+  this.idx = -1;
+};
+
+/**
+ * @param {number} price
+ * @return {number}
+ */
+StockSpanner.prototype.next = function(price) {
+  this.idx++;
+  while (price >= this.stack[this.stack.length - 1][1]) {
+    this.stack.pop();
+  }
+  this.stack.push([this.idx, price]);
+  return this.idx - this.stack[this.stack.length - 2][0];
+};
+
+/**
+ * Your StockSpanner object will be instantiated and called as such:
+ * var obj = new StockSpanner()
+ * var param_1 = obj.next(price)
+ */
+
+// const s = new StockSpanner();
+// console.log(s.next(100));
+// console.log(s.next(80));
+// console.log(s.next(60));
+// console.log(s.next(70));
+// console.log(s.next(60));
+// console.log(s.next(75));
+// console.log(s.next(85));
+
+
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ */
+var searchInsert = function(nums, target) {
+  const n = nums.length;
+  let l = 0, r = n;
+  while (l < r) {
+    const mid = l + Math.floor((r - l) / 2);
+    const val = nums[mid];
+    if (val < target) {
+      l = mid + 1;
+    } else {
+      r = mid;
+    }
+  }
+  return l;
+};
+
+// console.log(searchInsert([1,3,5,6], 5));
+// console.log(searchInsert([1,3,5,6], 2));
+// console.log(searchInsert([1,3,5,6], 7));
+// console.log(searchInsert([1,3,5,6], 0));
+
+
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var lengthOfLastWord = function(s) {
+  return s.split(" ").filter(x => x).pop().length;
+};
+
+// console.log(lengthOfLastWord("Hello World"));
+// console.log(lengthOfLastWord("a "));
+// console.log(lengthOfLastWord("a"));
+// console.log(lengthOfLastWord("a b"));
+// console.log(lengthOfLastWord("a b "));
+// console.log(lengthOfLastWord("a b c"));
+// console.log(lengthOfLastWord("a b c "));
+// console.log(lengthOfLastWord("   fly me   to   the moon  "));
+// console.log(lengthOfLastWord("luffy is still joyboy"));
+
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var partitionDisjoint = function(nums) {
+  const n = nums.length;
+  const leftMax = new Array(n).fill(0), rightMin = new Array(n).fill(0);
+  leftMax[0] = nums[0];
+  rightMin[n - 1] = nums[n - 1];
+  for (let i = 1; i < n; i++) {
+    leftMax[i] = Math.max(leftMax[i - 1], nums[i]);
+    rightMin[n - 1 - i] = Math.min(rightMin[n - i], nums[n - 1 - i]);
+  }
+  for (let i = 0; i < n - 1; i++) {
+    if (leftMax[i] <= rightMin[i + 1]) {
+      return i + 1;
+    }
+  }
+};
+
+// console.log(partitionDisjoint([5,0,3,8,6]));
+// console.log(partitionDisjoint([1,1,1,0,6,12]));
+
+
+/**
+ * @param {number[][]} grid
+ * @return {number}
+ */
+var shortestBridge = function(grid) {
+  const DIRS = [[-1, 0], [1, 0], [0, -1], [0, 1]];
+  const n = grid.length;
+  const island = [];
+  let x0, y0;
+  o: for (let i = 0; i < n; i++) {
+    for (let j = 0; j < n; j++) {
+      if (grid[i][j] === 1) {
+        [x0, y0] = [i, j];
+        break o;
+      }
+    }
+  }
+
+  dfs(x0, y0);
+
+  function dfs(x, y) {
+    grid[x][y] = -1;
+    island.push([x, y]);
+    for (const dir of DIRS) {
+      const [nx, ny] = [x + dir[0], y + dir[1]];
+      if (nx >= 0 && nx < n && ny >= 0 && ny < n && grid[nx][ny] === 1) {
+        dfs(nx, ny);
+      }
+    }
+  }
+
+  let ans = 0;
+  const queue = [...island];
+  while (true) {
+    const len = queue.length;
+    for (let i = 0; i < len; i++) {
+      const [x, y] = queue.shift();
+      for (const dir of DIRS) {
+        const [nx, ny] = [x + dir[0], y + dir[1]];
+        if (nx >= 0 && nx < n && ny >= 0 && ny < n) {
+          if (grid[nx][ny] === 1) {
+            return ans;
+          } else if (grid[nx][ny] === 0) {
+            grid[nx][ny] = -1;
+            queue.push([nx, ny]);
+          }
+        }
+      }
+    }
+    ans++;
+  }
+};
+
+console.log(shortestBridge([[0,1],[1,0]]));
+console.log(shortestBridge([[0,1,0],[0,0,0],[0,0,1]]));
+console.log(shortestBridge([[1,1,1,1,1],[1,0,0,0,1],[1,0,1,0,1],[1,0,0,0,1],[1,1,1,1,1]]));
