@@ -15,7 +15,8 @@
 //     const db = b[i];
 //     ans = add(ans, mul(a, db) + "0".repeat(b.length - 1 - i));
 //   }
-//   return ans;
+//   const index = ans.split("").findIndex(x => x !== "0");
+//   return ans.slice(index);
 //
 //   function mul(a, d) {
 //     const ans = [];
@@ -61,7 +62,7 @@ function multiply(a, b) {
     if (ans[i] >= 10) {
       const temp = ans[i];
       ans[i] %= 10;
-      ans[i - 1] = Math.floor(temp / 10);
+      ans[i - 1] += Math.floor(temp / 10);
     }
   }
   const index = ans.findIndex(x => x !== 0);
