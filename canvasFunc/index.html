@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Canvas Functions</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    html, body {
+      width: 100%;
+      height: 100%;
+    }
+    #canvas {
+      margin: 50px;
+      display: block;
+      width: 800px;
+      height: 800px;
+      border: 1px solid #000;
+    }
+  </style>
+</head>
+<body>
+<canvas id="canvas" width="800" height="800"></canvas>
+<script type="module">
+  import { FnApp } from "./main.js";
+
+  const canvas = document.getElementById("canvas");
+  const app = new FnApp(canvas, { gridCount: 20 });
+
+  app.addFn(x => 1 / x, 'orange');
+  app.addFn(x => x * x, 'cyan');
+  app.addFn(x => Math.log(x), 'pink');
+  app.addFn(x => Math.sin(x), 'green');
+  app.addFn(x => Math.sqrt(x), 'blue');
+  // function sign(x) {
+  //   return x < 0 ? -1 : 1;
+  // }
+  // app.addFn(x => sign(Math.sin(x)), 'red');
+
+  app.draw();
+  // app.drawAnimate();
+  window.app = app;
+</script>
+</body>
+</html>
