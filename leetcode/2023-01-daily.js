@@ -41,3 +41,57 @@ function ListNode(val, next) {
 }
 
 
+/**
+ * @param {number} n
+ * @param {number} index
+ * @param {number} maxSum
+ * @return {number}
+ */
+var maxValue = function(n, index, maxSum) {
+  let l = 1, r = maxSum;
+  while (l < r) {
+    const mid = Math.floor((l + r + 1) / 2);
+    const sum = getSum(n, index, mid)
+    if (sum <= maxSum) {
+      l = mid;
+    } else {
+      r = mid - 1;
+    }
+  }
+  return l;
+
+  function getSum(n, index, val) {
+    return val + getSubSum(val - 1 || 1, index) + getSubSum(val - 1 || 1, n - index - 1);
+  }
+
+  function getSubSum(val, cnt) {
+    if (cnt === 0 || cnt === 1) {
+      return [0, val][cnt];
+    }
+    if (cnt > val) {
+      return val * (val + 1) / 2 + cnt - val;
+    } else {
+      return cnt * (2 * val - cnt + 1) / 2;
+    }
+  }
+};
+
+// console.log(maxValue(4, 2, 6));
+// console.log(maxValue(6, 1, 10));
+
+
+/**
+ * @param {string} s
+ * @param {string[][]} knowledge
+ * @return {string}
+ */
+var evaluate = function(s, knowledge) {
+  const map = new Map(knowledge);
+  return s.replace(/\((.*?)\)/g, (_, key) => map.get(key) ?? "?");
+};
+
+// console.log(evaluate("(name)is(age)yearsold", [["name","bob"],["age","two"]]));
+// console.log(evaluate("hi(name)", [["a","b"]]));
+// console.log(evaluate("(a)(a)(a)aaa", [["a","yes"]]));
+// console.log(evaluate("(a)(b)", [["a","b"],["b","a"]]));
+

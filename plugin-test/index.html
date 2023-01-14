@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script src="https://cdn.jsdelivr.net/npm/anichart"></script>
+</head>
+<body>
+
+</body>
+<script>
+  console.log(anichart);
+
+  const ANI = anichart;
+
+  const stage = new ANI.Stage();
+
+  ANI.recourse.loadCSV("./test.csv", "data");
+  let bar = new ANI.BarChart({
+    dateLabelOptions: {},
+  });
+
+  stage.canvas.width = 800;
+  stage.canvas.height = 600;
+  stage.output = true;
+  const rect = new ANI.Rect({
+    shape: { width: 800, height: 600 },
+    fillStyle: "#efefef",
+  });
+  stage.addChild(rect);
+  stage.addChild(bar);
+  const hello = new ANI.Text({ text: "hello, world" });
+  stage.addChild(hello);
+  stage.play();
+
+  new ANI.MapChart({});
+</script>
+</html>
