@@ -95,3 +95,96 @@ var evaluate = function(s, knowledge) {
 // console.log(evaluate("(a)(a)(a)aaa", [["a","yes"]]));
 // console.log(evaluate("(a)(b)", [["a","b"],["b","a"]]));
 
+
+/**
+ * @param {string} sentence1
+ * @param {string} sentence2
+ * @return {boolean}
+ */
+var areSentencesSimilar = function(sentence1, sentence2) {
+  const arr1 = sentence1.split(" ");
+  const arr2 = sentence2.split(" ");
+  const m = arr1.length, n = arr2.length;
+  if (m < n) {
+    return areSentencesSimilar(sentence2, sentence1);
+  }
+  if (m === n) {
+    return sentence1 === sentence2;
+  }
+  for (let i = 0; i <= n; i++) {
+    const start = arr2.slice(0, i), end = arr2.slice(i);
+    if (arr1.slice(0, i).join(" ") === start.join(" ") && arr1.slice(-end.length || m).join(" ") === end.join(" ")) {
+      return true;
+    }
+  }
+  return false;
+};
+
+// console.log(areSentencesSimilar("My name is Haley", "My Haley"));
+// console.log(areSentencesSimilar("of", "A lot of words"));
+// console.log(areSentencesSimilar("Eating right now", "Eating"));
+// console.log(areSentencesSimilar("Luky", "Lucccky"));
+
+
+/**
+ * @param {number[]} obstacles
+ * @return {number}
+ */
+var minSideJumps = function(obstacles) {
+  const n = obstacles.length - 1;
+  const dp = new Array(3).fill(Infinity);
+  [dp[0], dp[1], dp[2]] = [1, 0, 1];
+  for (let i = 1; i <= n; i++) {
+    let min = Infinity;
+    for (let j = 0; j < 3; j++) {
+      if (obstacles[i] === j + 1) {
+        dp[j] = Infinity;
+      } else {
+        min = Math.min(min, dp[j]);
+      }
+    }
+    for (let j = 0; j < 3; j++) {
+      if (obstacles[i] !== j + 1) {
+        dp[j] = Math.min(dp[j], min + 1);
+      }
+    }
+  }
+  return Math.min(...dp);
+};
+
+// console.log(minSideJumps([0,1,2,3,0]));
+// console.log(minSideJumps([0,1,1,3,3,0]));
+// console.log(minSideJumps([0,2,1,0,3,0]));
+
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var waysToMakeFair = function(nums) {
+  const n = nums.length;
+  const oddSum = new Array(n).fill(0), evenSum = new Array(n).fill(0);
+  for (let i = 0; i < n; i++) {
+    if (i % 2) {
+      oddSum[i] = (oddSum[i - 1] || 0) + nums[i];
+      evenSum[i] = evenSum[i - 1] || 0;
+    } else {
+      evenSum[i] = (evenSum[i - 1] || 0) + nums[i];
+      oddSum[i] = oddSum[i - 1] || 0;
+    }
+  }
+  let ans = 0;
+  for (let i = 0; i < n; i++) {
+    const os = (oddSum[i - 1] || 0) + evenSum[n - 1] - evenSum[i];
+    const es = (evenSum[i - 1] || 0) + oddSum[n - 1] - oddSum[i];
+    if (os === es) {
+      ans++;
+    }
+  }
+  return ans;
+};
+
+// console.log(waysToMakeFair([2,1,6,4]));
+// console.log(waysToMakeFair([1,1,1]));
+// console.log(waysToMakeFair([1,2,3]));
+// console.log(waysToMakeFair([1,2,2,2,1,2,1]));
